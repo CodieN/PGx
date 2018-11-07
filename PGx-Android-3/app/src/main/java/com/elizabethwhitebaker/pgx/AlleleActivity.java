@@ -487,11 +487,11 @@ public class AlleleActivity extends DosageCalculator {
                                         "Pediatric: 0.1 mg/kg Three Times Weekly\n" +
                                         "Allow 4-6 weeks to reach steady state after each dose adjustment. \n");
                                 break;
-                            default:
-                                recommendations.setText("Please select again.");
+                            //default:
+                              //  recommendations.setText("Please select again.");
                         }
-                    default:
-                        recommendations.setText("Please select again.");
+                    //default:
+                      //  recommendations.setText("Please select again.");
                 }
 
             case "DPYD (Dihydropyrimidine dehydrogenase)":
@@ -659,14 +659,8 @@ public class AlleleActivity extends DosageCalculator {
                             case "*c.2983G>T *c.2983G>T":
                                 //metabolizer.setText(avoidUse2);
                                 break;
-                            default:
-                                recommendations.setText("Please select again.");
                         }
-                    default:
-                        recommendations.setText("Please select again.");
                 }
-            default:
-                recommendations.setText("Please select again.");
         }
     }
 }

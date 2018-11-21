@@ -1,3 +1,4 @@
+//AlleleActivity is what drives the dosage calculator and all of its calculations.
 package com.elizabethwhitebaker.pgx;
 
 import android.content.Intent;
@@ -12,64 +13,74 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.elizabethwhitebaker.pgx.DosageCalculator;
+
 import org.w3c.dom.Text;
 
 import java.util.Objects;
 
 public class AlleleActivity extends DosageCalculator {
+    //variables for this entire page
     public String poorMet;
     public String normMet;
     public String intMet;
-
+    //what the user can edit
     EditText Dosage;
     EditText Weight;
     EditText MedAmount;
     EditText PerVolume;
-
+    //the spinning menus that the user can pick units from
     Spinner DosageSpin;
     Spinner WeightSpin;
     Spinner MedAmountSpin;
     Spinner PerVolumeSpin;
     Spinner DoseSpin;
     Spinner LiquidDoseSpin;
-
+    //this is what holds the results after the calculations are done
     TextView Dose;
     TextView LiquidDose;
-
+    //intent is what brings the drug, alleles, and gene chosen from the other Activity pages
+    //into this one, so the calculations can be done on the drug, gene, and alleles that the
+    //user selected.
     Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allele);
+        //these set the string values for the metabolizer
         poorMet = (String) getString(R.string.poor_met);
         normMet = (String) getString(R.string.normal_met);
         intMet = (String) getString(R.string.int_met);
-
+        //this statement is what gets the values of the gene, drug, and alleles from the other
+        //Activity pages
         intent = getIntent();
-        String gene = intent.getStringExtra("gene");
-        String drug = intent.getStringExtra("drug");
-        String allele1 = intent.getStringExtra("allele1");
+        //these statements set string variables equal to the individual selections the user made
+        //on previous pages
+        String gene = intent.getStringExtra("gene"); //gene
+        String drug = intent.getStringExtra("drug"); //drug
+        String allele1 = intent.getStringExtra("allele1"); //alleles
         String allele2 = intent.getStringExtra("allele2");
+        //this value is used in the long nested switch statement at the bottom
         String alleles = allele1 + " " + allele2;
-
+        //this textview uses the values from poorMet, intMet, and normMet (above) to populate
+        //itself with text depending on the gene and drug and alleles chosen (figured out in
+        //the nested switch statement below)
         TextView metabolizer = (TextView) findViewById(R.id.metabolizer_tv);
+        //this textview uses the nested switch statement below to figure out which recommendation
+        //is correct for the gene, alleles, and drug the user selected
         TextView recommendations = (TextView) findViewById(R.id.recs_txt_tv);
+        //this allows for the textview to be scrollable, so the user can see all of the
+        //recommendation text
         recommendations.setMovementMethod(new ScrollingMovementMethod());
-//        Button button = (Button) findViewById(R.id.button2);
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(AlleleActivity.this, DosageCalculator.class));
-//            }
-//        });
-
+        //defines the calculate button
         Button Calculate = (Button)findViewById(R.id.button2);
+        //sets a method that listens for the calculate button to be tapped
         Calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //finds all the controls from the XML layout and sets them equal to variables so
+                //it's easier to manipulate and calculate with the contents of the controls
                 Dosage = (EditText)findViewById(R.id.editText);
                 Weight = (EditText)findViewById(R.id.editText2);
                 MedAmount = (EditText)findViewById(R.id.editText3);
@@ -83,7 +94,7 @@ public class AlleleActivity extends DosageCalculator {
                 PerVolumeSpin = (Spinner)findViewById(R.id.spinner4);
                 DoseSpin = (Spinner)findViewById(R.id.spinner6);
                 LiquidDoseSpin = (Spinner)findViewById(R.id.spinner7);
-
+                //sets all of the calculated results to 0
                 double Dosage1 = 0;
                 double Weight1 = 0;
                 double MedAmount1 = 0;
@@ -98,7 +109,7 @@ public class AlleleActivity extends DosageCalculator {
                 double LiquidDose1 = 0;
                 double DoseFinal = 0;
                 double LiquidDoseFinal = 0;
-
+                //gets all of the units the user wants the calculation to be converted to
                 String DosageSpin1= DosageSpin.getSelectedItem().toString();
                 String WeightSpin1=String.valueOf(WeightSpin.getSelectedItem());
                 String MedAmountSpin1=String.valueOf(MedAmountSpin.getSelectedItem());
@@ -106,7 +117,7 @@ public class AlleleActivity extends DosageCalculator {
                 String DoseSpin1=String.valueOf(DoseSpin.getSelectedItem());
                 String LiquidDoseSpin1=String.valueOf(LiquidDoseSpin.getSelectedItem());
 
-
+                //trys to see if the user entered numbers instead of letters
                 try {
                     Dosage1 = Double.parseDouble(String.valueOf(Dosage.getText()));
                 }
@@ -131,7 +142,7 @@ public class AlleleActivity extends DosageCalculator {
                 catch(Exception e)
                 {
                 }
-
+                //conversions based on the units the user chooses from the spinners
                 switch(DosageSpin1.toString()) {
                     case "mg/kg":
                         DosageFinal = Dosage1;
@@ -173,9 +184,9 @@ public class AlleleActivity extends DosageCalculator {
                         PerVolumeFinal = PerVolume1 * 1000;
                         break;
                 }
-
+                //this calculation needs to be made before we move on with other calculations
                 Dose1 = DosageFinal * WeightFinal;
-
+                //more unit conversions
                 switch(DoseSpin1.toString()) {
                     case "gm BID":
                         DoseFinal = Dose1/2000;
@@ -241,14 +252,13 @@ public class AlleleActivity extends DosageCalculator {
                         DoseFinal = Dose1/6;
                         break;
                 }
-
+                //decimal places the user wants to have the result in
                 int a=3;
-
+                //this sets a textview's text equal to the result of the calculation
                 Dose.setText(String.format("%."+String.valueOf(a)+"f", DoseFinal));
-//                Dose.setText(String.valueOf(DoseFinal));
-
+                //calculations to get a liquid dose
                 LiquidDose1 = (Dose1 * PerVolumeFinal)/MedAmountFinal;
-
+                //more unit conversions
                 switch(LiquidDoseSpin1.toString()) {
                     case "mL BID":
                         LiquidDoseFinal = LiquidDose1 * 2;
@@ -293,21 +303,21 @@ public class AlleleActivity extends DosageCalculator {
                         LiquidDoseFinal = LiquidDose1 * (6 * 1000);
                         break;
                 }
-
+                //sets the textview's text equal to the calculation result for liquid dose
                 LiquidDose.setText(String.format("%."+String.valueOf(a)+"f", LiquidDoseFinal));
-//                LiquidDose.setText(String.valueOf(LiquidDoseFinal));
-
             }
         });
 
-        switch(gene) {  //for each gene
+        //this is the long nested switch statement that uses previously selected items to produce
+        //the reccomendation text to display in the reccomendations textview
+        switch(gene) {  //pick the gene
             case "TPMT (Thiopurine methyltransferase)":
-                switch(alleles) {  //there are many drugs
+                switch(alleles) {  //pick the alleles
                     case "*1 *1":
                     case "*1 *1S":
                     case "*1S *1S":
                         metabolizer.setText(normMet);  //normal metabolism
-                        switch (drug) {
+                        switch (drug) {  //pick the drug
                             case "Mercaptopurine":
                             case "6MP":
                             case "Purinethol":
@@ -338,7 +348,7 @@ public class AlleleActivity extends DosageCalculator {
                                         "Juvenile Idiopathic Arthritis \n" +
                                         "* Pediatric: 1 mg/kg/day\n");
                                 break;
-                            default:
+                            default:  //this is if a drug isn't selected
                                 recommendations.setText("Please select again.");
                         }
                         break;
@@ -385,7 +395,7 @@ public class AlleleActivity extends DosageCalculator {
                                         "Pediatric: 0.3-0.7 mg/kg/day\n" +
                                         "Allow 2-4 weeks to reach steady state after each dose adjustment. \n");
                                 break;
-                            default:
+                            default:  //this is if a drug isn't selected
                                 recommendations.setText("Please select again.");
                         }
                         break;
@@ -429,11 +439,11 @@ public class AlleleActivity extends DosageCalculator {
                                         "Pediatric: 0.1 mg/kg Three Times Weekly\n" +
                                         "Allow 4-6 weeks to reach steady state after each dose adjustment. \n");
                                 break;
-                            default:
+                            default:  //this is used when a drug hasn't been selected
                                 recommendations.setText("Please select again.");
                         }
                         break;
-                    default:
+                    default:  //this is used when allele(s) haven't been selected
                         recommendations.setText("Please select again.");
                 }
                 break;

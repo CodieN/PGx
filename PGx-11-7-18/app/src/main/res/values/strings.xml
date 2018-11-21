@@ -124,70 +124,70 @@
     <string-array name="DosageSpinner">
 
 
-        <item>Mg/Kg</item>
-        <item>Mcg/Kg</item>
-        <item>Gm/Kg</item>
+        <item>mg/kg</item>
+        <item>mcg/kg</item>
+        <item>gm/kg</item>
 
     </string-array>
 
 
     <string-array name="WeightSpinner">
 
-        <item>Kg</item>
-        <item>Lb</item>
+        <item>kg</item>
+        <item>lbs</item>
 
     </string-array>
     <string-array name="MedAmountSpinner">
 
-        <item>Gm</item>
-        <item>Mcg</item>
-        <item>Mg</item>
+        <item>gm</item>
+        <item>mcg</item>
+        <item>mg</item>
 
     </string-array>
 
     <string-array name="PerVolumeSpinner">
 
-        <item>Ml</item>
+        <item>mL</item>
         <item>L</item>
 
     </string-array>
 
     <string-array name="DoseSpinner">
 
-        <item>Gm BID</item>
-        <item>Gm Daily</item>
-        <item>Gm QID</item>
-        <item>Gm TID</item>
-        <item>Gm q1 hr</item>
-        <item>Gm q2 hr</item>
-        <item>Gm q4 hr</item>
-        <item>Mcg BID</item>
-        <item>Mcg Daily</item>
-        <item>Mcg QID</item>
-        <item>Mcg TID</item>
-        <item>Mcg q1 hr</item>
-        <item>Mcg q2 hr</item>
-        <item>Mcg q4 hr</item>
-        <item>Mg BID</item>
-        <item>Mg Daily</item>
-        <item>Mg QID</item>
-        <item>Mg TID</item>
-        <item>Mg q1 hr</item>
-        <item>Mg q2 hr</item>
-        <item>Mg q4 hr</item>
+        <item>gm BID</item>
+        <item>gm Daily</item>
+        <item>gm QID</item>
+        <item>gm TID</item>
+        <item>gm q1 hr</item>
+        <item>gm q2 hr</item>
+        <item>gm q4 hr</item>
+        <item>mcg BID</item>
+        <item>mcg Daily</item>
+        <item>mcg QID</item>
+        <item>mcg TID</item>
+        <item>mcg q1 hr</item>
+        <item>mcg q2 hr</item>
+        <item>mcg q4 hr</item>
+        <item>mg BID</item>
+        <item>mg Daily</item>
+        <item>mg QID</item>
+        <item>mg TID</item>
+        <item>mg q1 hr</item>
+        <item>mg q2 hr</item>
+        <item>mg q4 hr</item>
 
 
     </string-array>
 
     <string-array name="LiquidDoseSpinner">
 
-        <item>Ml BID</item>
-        <item>Ml Daily</item>
-        <item>Ml QID</item>
-        <item>Ml TID</item>
-        <item>Ml q1 hr</item>
-        <item>Ml q2 hr</item>
-        <item>Ml q4 hr</item>
+        <item>mL BID</item>
+        <item>mL Daily</item>
+        <item>mL QID</item>
+        <item>mL TID</item>
+        <item>mL q1 hr</item>
+        <item>mL q2 hr</item>
+        <item>mL q4 hr</item>
         <item>L BID</item>
         <item>L Daily</item>
         <item>L QID</item>
@@ -227,6 +227,7 @@
     <string-array name="gene_array">
         <item>Select gene</item>
         <item>TPMT (Thiopurine methyltransferase)</item>
+        <!--<item>DPYD (Dihydropyrimidine dehydrogenase)</item>-->
 
     </string-array>
 

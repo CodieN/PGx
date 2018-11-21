@@ -8,6 +8,22 @@
     android:elevation="1dp"
     tools:context="com.elizabethwhitebaker.pgx.AlleleActivity">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32sp"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@color/colorPrimary"
+        tools:verticalScrollbarPosition="right" />
+
     <TextView
         android:id="@+id/metabolizer_tv"
         android:layout_width="wrap_content"
@@ -86,7 +102,7 @@
         android:text="Results:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/calculator_tv"/>
+        app:layout_constraintTop_toBottomOf="@+id/calculator_tv" />
 
     <TextView
         android:id="@+id/liquid_tv"
@@ -200,20 +216,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/med_amout_tv" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:elevation="12dp"
-        android:text="Calculate"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/decimal_prec_tv"/>
-
     <EditText
         android:id="@+id/editText"
         android:layout_width="50dp"
@@ -272,7 +274,7 @@
         android:layout_marginEnd="4dp"
         android:elevation="12dp"
         android:entries="@array/DosageSpinner"
-        android:textSize="8sp"
+        android:textSize="12sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/editText"
         app:layout_constraintEnd_toStartOf="@+id/guideline7" />
 
@@ -285,7 +287,7 @@
         android:layout_marginTop="4dp"
         android:elevation="12dp"
         android:entries="@array/WeightSpinner"
-        android:textSize="8sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toBottomOf="@+id/editText"/>
 
@@ -297,7 +299,7 @@
         android:layout_marginEnd="4dp"
         android:elevation="12dp"
         android:entries="@array/MedAmountSpinner"
-        android:textSize="8sp"
+        android:textSize="12sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/editText3"
         app:layout_constraintEnd_toStartOf="@+id/guideline7" />
 
@@ -309,7 +311,7 @@
         android:layout_marginEnd="4dp"
         android:elevation="12dp"
         android:entries="@array/PerVolumeSpinner"
-        android:textSize="8sp"
+        android:textSize="12sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/editText4"
         app:layout_constraintEnd_toStartOf="@+id/guideline7" />
 
@@ -318,13 +320,15 @@
         android:id="@+id/spinner6"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:elevation="12dp"
         android:entries="@array/DoseSpinner"
-        android:textSize="8sp"
+        android:textSize="12sp"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dose_tv"/>
+        app:layout_constraintTop_toBottomOf="@+id/dose_tv" />
 
 
     <Spinner
@@ -335,7 +339,9 @@
         android:layout_marginTop="4dp"
         android:elevation="12dp"
         android:entries="@array/LiquidDoseSpinner"
-        android:textSize="8sp"
+        android:textSize="12sp"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/liquid_tv"/>
 
@@ -388,18 +394,17 @@
         app:layout_constraintEnd_toStartOf="@+id/spinner7"
         app:layout_constraintStart_toStartOf="@+id/guideline7" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32sp"
-        android:overScrollMode="ifContentScrolls"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/button2"
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:text="Calculate"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:srcCompat="@color/colorPrimary"
-        tools:verticalScrollbarPosition="right" />
+        app:layout_constraintTop_toBottomOf="@+id/decimal_prec_tv" />
 
 </android.support.constraint.ConstraintLayout>

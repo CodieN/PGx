@@ -82,240 +82,185 @@ public class DosageCalculator extends AppCompatActivity {
                 }
                 catch(Exception e)
                 {
-
                 }
                 try {
-
-
                     MedAmount1 = Double.parseDouble(String.valueOf(MedAmount.getText()));
                 }
                 catch (Exception e)
                 {
-
                 }
                 try {
                     PerVolume1 = Double.parseDouble(String.valueOf(PerVolume.getText()));
                 }
                 catch(Exception e)
                 {
-
                 }
 
-                if(DosageSpin1.toString().equals("Mg/Kg"))
-                {
-                    DosageFinal = Dosage1 / 1000;
+                switch(DosageSpin1.toString()) {
+                    case "mg/kg":
+                        DosageFinal = Dosage1;
+                        break;
+                    case "mcg/kg":
+                        DosageFinal = Dosage1 / 1000;
+                        break;
+                    case "gm/kg":
+                        DosageFinal = Dosage1 * 1000;
+                        break;
                 }
-                if(DosageSpin1.toString().equals("Mcg/Kg"))
-                {
-                    DosageFinal = Dosage1 / 1000000;
+
+                switch(WeightSpin1.toString()) {
+                    case "kg":
+                        WeightFinal = Weight1;
+                        break;
+                    case "lbs":
+                        WeightFinal = Weight1 * 0.45359237;
+                        break;
                 }
-                if(DosageSpin1.toString().equals("Gm/Kg"))
-                {
-                    DosageFinal = Dosage1;
+
+                switch(MedAmountSpin1.toString()) {
+                    case "gm":
+                        MedAmountFinal = MedAmount1 * 1000;
+                        break;
+                    case "mcg":
+                        MedAmountFinal = MedAmount1 / 1000;
+                        break;
+                    case "mg":
+                        MedAmountFinal = MedAmount1;
+                        break;
                 }
-                if(WeightSpin1.equals("Kg"))
-                {
-                    WeightFinal = Weight1;
-                }
-                if(WeightSpin1.equals("Lb"))
-                {
-                    WeightFinal = Weight1 * 0.453592  ;
-                }
-                if(MedAmountSpin1.equals("Gm"))
-                {
-                    MedAmountFinal = MedAmount1;
-                }
-                if(MedAmountSpin1.equals("Mcg"))
-                {
-                    MedAmountFinal = MedAmount1 / 1000000;
-                }
-                if(MedAmountSpin1.equals("Mg"))
-                {
-                    MedAmountFinal = MedAmount1 / 1000;
-                }
-                if(PerVolumeSpin1.equals("Ml"))
-                {
-                    PerVolumeFinal = PerVolume1;
-                }
-                if(PerVolumeSpin1.equals("L"))
-                {
-                    PerVolumeFinal = PerVolume1 * 1000;
+
+                switch(PerVolumeSpin1.toString()) {
+                    case "mL":
+                        PerVolumeFinal = PerVolume1;
+                        break;
+                    case "L":
+                        PerVolumeFinal = PerVolume1 * 1000;
+                        break;
                 }
 
                 Dose1 = DosageFinal * WeightFinal;
 
-                if(DoseSpin1.equals("Gm BID"))
-                {
-                    DoseFinal = Dose1/2;
+                switch(DoseSpin1.toString()) {
+                    case "gm BID":
+                        DoseFinal = Dose1/2000;
+                        break;
+                    case "gm Daily":
+                        DoseFinal = Dose1/1000;
+                        break;
+                    case "gm QID":
+                        DoseFinal = Dose1/4000;
+                        break;
+                    case "gm TID":
+                        DoseFinal = Dose1/3000;
+                        break;
+                    case "gm q1 hr":
+                        DoseFinal = Dose1/24000;
+                        break;
+                    case "gm q2 hr":
+                        DoseFinal = Dose1/12000;
+                        break;
+                    case "gm q4 hr":
+                        DoseFinal = Dose1/6000;
+                        break;
+                    case "mcg BID":
+                        DoseFinal = Dose1/0.002;
+                        break;
+                    case "mcg Daily":
+                        DoseFinal = Dose1/0.001;
+                        break;
+                    case "mcg QID":
+                        DoseFinal = Dose1/0.004;
+                        break;
+                    case "mcg TID":
+                        DoseFinal = Dose1/0.003;
+                        break;
+                    case "mcg q1 hr":
+                        DoseFinal = Dose1/0.024;
+                        break;
+                    case "mcg q2 hr":
+                        DoseFinal = Dose1/0.012;
+                        break;
+                    case "mcg q4 hr":
+                        DoseFinal = Dose1/0.006;
+                        break;
+                    case "mg BID":
+                        DoseFinal = Dose1/2;
+                        break;
+                    case "mg Daily":
+                        DoseFinal = Dose1;
+                        break;
+                    case "mg QID":
+                        DoseFinal = Dose1/4;
+                        break;
+                    case "mg TID":
+                        DoseFinal = Dose1/3;
+                        break;
+                    case "mg q1 hr":
+                        DoseFinal = Dose1/24;
+                        break;
+                    case "mg q2 hr":
+                        DoseFinal = Dose1/12;
+                        break;
+                    case "mg q4 hr":
+                        DoseFinal = Dose1/6;
+                        break;
                 }
-                if(DoseSpin1.equals("Gm Daily"))
-                {
-                    DoseFinal = Dose1;
-                }
-                if(DoseSpin1.equals("Gm QID"))
-                {
-                    DoseFinal = Dose1/4;
-                }
-                if(DoseSpin1.equals("Gm TID"))
-                {
-                    DoseFinal = Dose1/3;
-                }
-                if(DoseSpin1.equals("Gm q1 hr"))
-                {
-                    DoseFinal = Dose1/24;
-                }
-                if(DoseSpin1.equals("Gm q2 hr"))
-                {
-                    DoseFinal = Dose1/12;
-                }
-                if(DoseSpin1.equals("Gm q4 hr"))
-                {
-                    DoseFinal = Dose1/6;
-                }
-// gm done
-
-                if(DoseSpin1.equals("Mcg BID"))
-                {
-                    DoseFinal = Dose1 * 1000000/2;
-                }
-                if(DoseSpin1.equals("Mcg Daily"))
-                {
-                    DoseFinal = Dose1 * 1000000;
-                }
-                if(DoseSpin1.equals("Mcg QID"))
-                {
-                    DoseFinal = Dose1 * 1000000/4;
-                }
-                if(DoseSpin1.equals("Mcg TID"))
-                {
-                    DoseFinal = Dose1 * 1000000/3;
-                }
-                if(DoseSpin1.equals("Mcg q1 hr"))
-                {
-                    DoseFinal = Dose1 * 1000000/24;
-                }
-                if(DoseSpin1.equals("Mcg q2 hr"))
-                {
-                    DoseFinal = Dose1 * 1000000/12;
-                }
-                if(DoseSpin1.equals("Mcg q4 hr"))
-                {
-                    DoseFinal = Dose1 * 1000000/6;
-                }
-// mcg done
-
-                if(DoseSpin1.equals("Mg BID"))
-                {
-                    DoseFinal = Dose1 * 1000/2;
-                }
-                if(DoseSpin1.equals("Mg Daily"))
-                {
-                    DoseFinal = Dose1 * 1000;
-                }
-                if(DoseSpin1.equals("Mg QID"))
-                {
-                    DoseFinal = Dose1 * 1000/4;
-                }
-                if(DoseSpin1.equals("Mg TID"))
-                {
-                    DoseFinal = Dose1 * 1000/3;
-                }
-                if(DoseSpin1.equals("Mg q1 hr"))
-                {
-                    DoseFinal = Dose1 * 1000/24;
-                }
-                if(DoseSpin1.equals("Mg q2 hr"))
-                {
-                    DoseFinal = Dose1 * 1000/12;
-                }
-                if(DoseSpin1.equals("Mg q4 hr"))
-                {
-                    DoseFinal = Dose1 * 1000/6;
-                }
-
 
                 int a=3;
 
-
                 //Change precision
 
-
                 Dose.setText(String.format("%."+String.valueOf(a)+"f", DoseFinal));
-//                Dose.setText(String.valueOf(DoseFinal));
 
-                LiquidDose1 = (DosageFinal * WeightFinal * PerVolumeFinal)/MedAmountFinal;
-                if(LiquidDoseSpin1.equals("Ml BID"))
-                {
-                    LiquidDoseFinal = LiquidDose1/2;
-                }
-                if(LiquidDoseSpin1.equals("Ml Daily"))
-                {
-                    LiquidDoseFinal = LiquidDose1;
-                }
-                if(LiquidDoseSpin1.equals("Ml QID"))
-                {
-                    LiquidDoseFinal = LiquidDose1/4;
-                }
-                if(LiquidDoseSpin1.equals("Ml TID"))
-                {
-                    LiquidDoseFinal = LiquidDose1/3;
-                }
-                if(LiquidDoseSpin1.equals("Ml q1 hr"))
-                {
-                    LiquidDoseFinal = LiquidDose1/24;
-                }
-                if(LiquidDoseSpin1.equals("Ml q2 hr"))
-                {
-                    LiquidDoseFinal = LiquidDose1/12;
-                }
-                if(LiquidDoseSpin1.equals("Ml q4 hr"))
-                {
-                    LiquidDoseFinal = LiquidDose1 / 6;
-                }
+                LiquidDose1 = (Dose1 * PerVolumeFinal)/MedAmountFinal;
 
-
-// ml done
-
-                if(LiquidDoseSpin1.equals("L BID"))
-                {
-                    LiquidDoseFinal = LiquidDose1/(2  * 1000);
+                switch(LiquidDoseSpin1.toString()) {
+                    case "mL BID":
+                        LiquidDoseFinal = LiquidDose1/2;
+                        break;
+                    case "mL Daily":
+                        LiquidDoseFinal = LiquidDose1;
+                        break;
+                    case "mL QID":
+                        LiquidDoseFinal = LiquidDose1/4;
+                        break;
+                    case "mL TID":
+                        LiquidDoseFinal = LiquidDose1/3;
+                        break;
+                    case "mL q1 hr":
+                        LiquidDoseFinal = LiquidDose1/24;
+                        break;
+                    case "mL q2 hr":
+                        LiquidDoseFinal = LiquidDose1/12;
+                        break;
+                    case "mL q4 hr":
+                        LiquidDoseFinal = LiquidDose1/6;
+                        break;
+                    case "L BID":
+                        LiquidDoseFinal = LiquidDose1/(2  * 1000);
+                        break;
+                    case "L Daily":
+                        LiquidDoseFinal = LiquidDose1 / 1000;
+                        break;
+                    case "L QID":
+                        LiquidDoseFinal = LiquidDose1/(4 * 1000);
+                        break;
+                    case "L TID":
+                        LiquidDoseFinal = LiquidDose1/(3 * 1000);
+                        break;
+                    case "L q1 hr":
+                        LiquidDoseFinal = LiquidDose1/(24 * 1000);
+                        break;
+                    case "L q2 hr":
+                        LiquidDoseFinal = LiquidDose1 /(12 * 1000);
+                        break;
+                    case "L q4 hr":
+                        LiquidDoseFinal = LiquidDose1 /(6 * 1000);
+                        break;
                 }
-                if(LiquidDoseSpin1.equals("L Daily"))
-                {
-                    LiquidDoseFinal = LiquidDose1 / 1000;
-                }
-                if(LiquidDoseSpin1.equals("L QID"))
-                {
-                    LiquidDoseFinal = LiquidDose1/(4 * 1000);
-                }
-                if(LiquidDoseSpin1.equals("L TID"))
-                {
-                    LiquidDoseFinal = LiquidDose1/(3 * 1000);
-                }
-                if(LiquidDoseSpin1.equals("L q1 hr"))
-                {
-                    LiquidDoseFinal = LiquidDose1/(24 * 1000);
-                }
-                if(LiquidDoseSpin1.equals("L q2 hr"))
-                {
-                    LiquidDoseFinal = LiquidDose1 /(12 * 1000);
-                }
-                if(LiquidDoseSpin1.equals("L q4 hr"))
-                {
-                    LiquidDoseFinal = LiquidDose1 /(6 * 1000);
-                }
-// L done
-
 
                 LiquidDose.setText(String.format("%."+String.valueOf(a)+"f", LiquidDoseFinal));
-//                LiquidDose.setText(String.valueOf(LiquidDoseFinal));
-
             }
         });
-
-
-
     }
-
-
 }

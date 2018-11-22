@@ -29,32 +29,77 @@ public class DosingGuidelines extends AppCompatActivity implements SpinnerAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dosing_guidelines);
 
-        alleleSpinner1 = (Spinner) findViewById(R.id.allele_spinner1);
-        ArrayAdapter<CharSequence> allele1Adapter = ArrayAdapter.createFromResource(this,
-                R.array.allele1_array, android.R.layout.simple_spinner_item);
-        allele1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        alleleSpinner1.setAdapter(allele1Adapter);
-//        alleleSpinner1.setOnItemSelectedListener(this);
-
-        alleleSpinner2 = (Spinner) findViewById(R.id.allele_spinner2);
-        ArrayAdapter<CharSequence> allele2Adapter = ArrayAdapter.createFromResource(this,
-                R.array.allele2_array, android.R.layout.simple_spinner_item);
-        allele2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        alleleSpinner2.setAdapter(allele2Adapter);
-//        alleleSpinner2.setOnItemSelectedListener(this);
-
         intent = new Intent(DosingGuidelines.this, AlleleActivity.class);
         String gene = getIntent().getStringExtra("gene");
         String drug = getIntent().getStringExtra("drug");
         intent.putExtra("gene", gene);
         intent.putExtra("drug", drug);
 
+        alleleSpinner1 = (Spinner) findViewById(R.id.allele_spinner1);
+        alleleSpinner2 = (Spinner) findViewById(R.id.allele_spinner2);
+        final Button btnDone = (Button) findViewById(R.id.btn_done);
+
+        btnDone.setEnabled(false);
+
+        switch(gene) {
+            case "TPMT (Thiopurine methyltransferase)":
+
+                ArrayAdapter<CharSequence> allele1AdapterTPMT = ArrayAdapter.createFromResource(this,
+                        R.array.allele1_arrayTPMT, android.R.layout.simple_spinner_item);
+                allele1AdapterTPMT.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                alleleSpinner1.setAdapter(allele1AdapterTPMT);
+
+                ArrayAdapter<CharSequence> allele2AdapterTPMT = ArrayAdapter.createFromResource(this,
+                        R.array.allele2_arrayTPMT, android.R.layout.simple_spinner_item);
+                allele2AdapterTPMT.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                alleleSpinner2.setAdapter(allele2AdapterTPMT);
+                break;
+            case "DPYD (Dihydropyrimidine dehydrogenase)":
+
+                ArrayAdapter<CharSequence> allele1AdapterDPYD = ArrayAdapter.createFromResource(this,
+                        R.array.allele1_arrayDPYD, android.R.layout.simple_spinner_item);
+                allele1AdapterDPYD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                alleleSpinner1.setAdapter(allele1AdapterDPYD);
+
+                ArrayAdapter<CharSequence> allele2AdapterDPYD = ArrayAdapter.createFromResource(this,
+                        R.array.allele2_arrayDPYD, android.R.layout.simple_spinner_item);
+                allele2AdapterDPYD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                alleleSpinner2.setAdapter(allele2AdapterDPYD);
+                break;
+        }
+        alleleSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!alleleSpinner1.getSelectedItem().toString().equals("Select first allele") &&
+                        !alleleSpinner2.getSelectedItem().toString().equals("Select second allele")) {
+                    btnDone.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        alleleSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!alleleSpinner1.getSelectedItem().toString().equals("Select first allele") &&
+                        !alleleSpinner2.getSelectedItem().toString().equals("Select second allele")) {
+                    btnDone.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         TextView textView = (TextView) findViewById(R.id.dosing_guideline_tv);
 
         textView.setText("Dosing Guidelines for " + gene + " and " + drug);
 
-        Button btnDone = (Button) findViewById(R.id.btn_done);
         btnDone.setOnClickListener(mOnClickListener);
 
     }
@@ -64,32 +109,22 @@ public class DosingGuidelines extends AppCompatActivity implements SpinnerAdapte
         public void onClick(View v) {
             intent.putExtra("allele1", alleleSpinner1.getSelectedItem().toString());
             intent.putExtra("allele2", alleleSpinner2.getSelectedItem().toString());
-
-//                Log.d(TAG, "onItemSelected: " + gene);
             startActivity(intent);
         }
     };
 
+    /*@Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(!alleleSpinner1.getSelectedItem().toString().equals("Select first allele") && !alleleSpinner2.getSelectedItem().toString().equals("Select second allele") ) {
+            intent.putExtra("allele1", alleleSpinner1.getSelectedItem().toString());
+            intent.putExtra("allele2", alleleSpinner2.getSelectedItem().toString());
 
-//    @Override
-//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-////        if(!alleleSpinner1.getSelectedItem().toString().equals("Select first allele") && !alleleSpinner2.getSelectedItem().toString().equals("Select second allele") ) {
-////            //Intent intent = new Intent(DosingGuidelines.this, AlleleActivity.class);
-////            intent.putExtra("allele1", alleleSpinner1.getSelectedItem().toString());
-////            intent.putExtra("allele2", alleleSpinner2.getSelectedItem().toString());
-////
-////            Log.d(TAG, "onItemSelected: " + gene);
-////            startActivity(intent);
-////
-////        }
-//
-//    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView<?> parent) {
-//
-//    }
+            startActivity(intent);
+        }
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+    }*/
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {

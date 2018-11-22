@@ -122,38 +122,28 @@
 
 
     <string-array name="DosageSpinner">
-
-
         <item>mg/kg</item>
         <item>mcg/kg</item>
         <item>gm/kg</item>
-
     </string-array>
-
 
     <string-array name="WeightSpinner">
-
         <item>kg</item>
         <item>lbs</item>
-
     </string-array>
-    <string-array name="MedAmountSpinner">
 
+    <string-array name="MedAmountSpinner">
         <item>gm</item>
         <item>mcg</item>
         <item>mg</item>
-
     </string-array>
 
     <string-array name="PerVolumeSpinner">
-
         <item>mL</item>
         <item>L</item>
-
     </string-array>
 
     <string-array name="DoseSpinner">
-
         <item>gm BID</item>
         <item>gm Daily</item>
         <item>gm QID</item>
@@ -175,12 +165,9 @@
         <item>mg q1 hr</item>
         <item>mg q2 hr</item>
         <item>mg q4 hr</item>
-
-
     </string-array>
 
     <string-array name="LiquidDoseSpinner">
-
         <item>mL BID</item>
         <item>mL Daily</item>
         <item>mL QID</item>
@@ -195,7 +182,6 @@
         <item>L q1 hr</item>
         <item>L q2 hr</item>
         <item>L q4 hr</item>
-
     </string-array>
 
     <string-array name="know_more_files">
@@ -204,10 +190,9 @@
         <item>know_more_3</item>
         <item>know_more_4</item>
         <item>know_more_5</item>
-
     </string-array>
 
-    <string-array name="drugs_array">
+    <string-array name="drugs_arrayTPMT">
         <item>Select drug</item>
         <item>Mercaptopurine</item>
         <item>6MP</item>
@@ -221,25 +206,49 @@
         <item>Azathioprine</item>
         <item>Azasan</item>
         <item>Imuran</item>
+    </string-array>
 
+    <string-array name="drugs_arrayDPYD">
+        <item>Select drug</item>
+        <item>XELODA</item>
+        <item>Capecitabine</item>
+        <item>Fluorouracil</item>
+        <item>Efudex</item>
+        <item>Fluoroplex</item>
+        <item>Adrucil</item>
+        <item>5-fluorouracil</item>
+        <item>5-FU</item>
     </string-array>
 
     <string-array name="gene_array">
         <item>Select gene</item>
         <item>TPMT (Thiopurine methyltransferase)</item>
-        <!--<item>DPYD (Dihydropyrimidine dehydrogenase)</item>-->
-
+        <item>DPYD (Dihydropyrimidine dehydrogenase)</item>
     </string-array>
 
-    <string-array name="allele1_array">
+    <string-array name="allele1_arrayTPMT">
         <item>Select first allele</item>
         <item>*1</item>
         <item>*1S</item>
         <item>*2</item>
-
     </string-array>
 
-    <string-array name="allele2_array">
+    <string-array name="allele1_arrayDPYD">
+        <item>Select first allele</item>
+        <item>*Normal/No variant</item>
+        <item>*c.557A>G</item>
+        <item>*c.1129-5923C>G</item>
+        <item>*c.2846A>T</item>
+        <item>*c.295_298delTCAT</item>
+        <item>*c.703C>T</item>
+        <item>*c.1156G>T</item>
+        <item>*c.1679T>G</item>
+        <item>*c.1898delC</item>
+        <item>*c.1905+1G>A</item>
+        <item>*c.2983G>T</item>
+    </string-array>
+
+    <string-array name="allele2_arrayTPMT">
         <item>Select second allele</item>
         <item>*1</item>
         <item>*1S</item>
@@ -248,10 +257,21 @@
         <item>*3B</item>
         <item>*3C</item>
         <item>*4</item>
-
-
     </string-array>
 
-
+    <string-array name="allele2_arrayDPYD">
+        <item>Select second allele</item>
+        <item>*Normal/No variant</item>
+        <item>*c.557A>G</item>
+        <item>*c.1129-5923C>G</item>
+        <item>*c.2846A>T</item>
+        <item>*c.295_298delTCAT</item>
+        <item>*c.703C>T</item>
+        <item>*c.1156G>T</item>
+        <item>*c.1679T>G</item>
+        <item>*c.1898delC</item>
+        <item>*c.1905+1G>A</item>
+        <item>*c.2983G>T</item>
+    </string-array>
 
 </resources>

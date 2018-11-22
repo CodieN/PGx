@@ -46,41 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, KnowMoreActivity.class));
             }
         });
-
-//        intro = (ConstraintLayout) findViewById(R.id.intro);
-//        intro2 = (ConstraintLayout) findViewById(R.id.intro2);
-//        intro3 = (ConstraintLayout) findViewById(R.id.intro3);
-//        intro4 = (ConstraintLayout) findViewById(R.id.intro4);
-//
-//        currentLayout = findViewById(R.id.intro);
-//
-//        Log.d(TAG, "root view is " + currentLayout.getId() + " and " + R.id.intro);
-//        currentLayout.setOnClickListener(mOnClickListener);
-
-//        Old Code
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        Button btnKnow = (Button) findViewById(R.id.btnKnow);
-//        Button btnStart = (Button) findViewById(R.id.btnStart);
-//
-//        btnStart.setOnClickListener(this);
-//        btnKnow.setOnClickListener(this);
     }
-
-    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            switch(currentLayout.getId()) {
-
-                case R.id.intro4:
-
-
-                    break;
-            }
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -12,9 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.Toast;
 
-public class GetStartedActivity extends AppCompatActivity implements SpinnerAdapter, AdapterView.OnItemSelectedListener{
+import static android.widget.AdapterView.*;
+
+public class GetStartedActivity extends AppCompatActivity implements SpinnerAdapter{
     private static final String TAG = "GetStartedActivity";
 
     private Spinner geneSpinner, drugSpinner;
@@ -27,21 +28,63 @@ public class GetStartedActivity extends AppCompatActivity implements SpinnerAdap
 
         geneSpinner = (Spinner) findViewById(R.id.gene_spinner);
         drugSpinner = (Spinner) findViewById(R.id.drug_spinner);
+        final Button btnDone = (Button) findViewById(R.id.btn_done1);
+
+        btnDone.setEnabled(false);
 
         ArrayAdapter<CharSequence> geneAdapter = ArrayAdapter.createFromResource(this,
                 R.array.gene_array, android.R.layout.simple_spinner_item);
         geneAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         geneSpinner.setAdapter(geneAdapter);
-//        geneSpinner.setOnItemSelectedListener(this);
 
+        final ArrayAdapter<CharSequence> drugAdapterTPMT = ArrayAdapter.createFromResource(this,
+                R.array.drugs_arrayTPMT, android.R.layout.simple_spinner_item);
+        drugAdapterTPMT.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        ArrayAdapter<CharSequence> drugAdapter = ArrayAdapter.createFromResource(this,
-                R.array.drugs_array, android.R.layout.simple_spinner_item);
-        drugAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        drugSpinner.setAdapter(drugAdapter);
-//        drugSpinner.setOnItemSelectedListener(this);
+        final ArrayAdapter<CharSequence> drugAdapterDPYD = ArrayAdapter.createFromResource(this,
+                R.array.drugs_arrayDPYD, android.R.layout.simple_spinner_item);
+        drugAdapterDPYD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Button btnDone = (Button) findViewById(R.id.btn_done1);
+        geneSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(geneSpinner.getSelectedItem().toString().equals("Select gene")) {
+                    drugSpinner.setEnabled(false);
+                } else {
+                    drugSpinner.setEnabled(true);
+                    switch(geneSpinner.getSelectedItem().toString())
+                    {
+                        case "TPMT (Thiopurine methyltransferase)":
+                            drugSpinner.setEnabled(true);
+                            drugSpinner.setAdapter(drugAdapterTPMT);
+                            break;
+                        case "DPYD (Dihydropyrimidine dehydrogenase)":
+                            drugSpinner.setEnabled(true);
+                            drugSpinner.setAdapter(drugAdapterDPYD);
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        drugSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!drugSpinner.getSelectedItem().toString().equals("Select drug")) {
+                    btnDone.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         btnDone.setOnClickListener(mOnClickListener);
 
     }
@@ -49,27 +92,16 @@ public class GetStartedActivity extends AppCompatActivity implements SpinnerAdap
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(GetStartedActivity.this, DosingGuidelines.class);
-            intent.putExtra("drug", drugSpinner.getSelectedItem().toString());
-            intent.putExtra("gene", geneSpinner.getSelectedItem().toString());
-            startActivity(intent);
+            try {
+                Intent intent = new Intent(GetStartedActivity.this, DosingGuidelines.class);
+                intent.putExtra("drug", drugSpinner.getSelectedItem().toString());
+                intent.putExtra("gene", geneSpinner.getSelectedItem().toString());
+                startActivity(intent);
+            } catch(NullPointerException npe) {
+
+            }
         }
     };
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        if(!geneSpinner.getSelectedItem().toString().equals("Select gene") && !drugSpinner.getSelectedItem().toString().equals("Select drug") ) {
-
-
-        }
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {

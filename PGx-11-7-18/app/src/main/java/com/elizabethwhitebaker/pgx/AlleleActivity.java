@@ -4,6 +4,7 @@ package com.elizabethwhitebaker.pgx;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -312,34 +313,107 @@ public class AlleleActivity extends DosageCalculator {
         //the reccomendation text to display in the reccomendations textview
         switch(gene) {  //pick the gene
             case "TPMT (Thiopurine methyltransferase)":
-                switch(alleles) {  //pick the alleles
-                    case "*1 *1":
-                    case "*1 *1S":
-                    case "*1S *1S":
-                        metabolizer.setText(normMet);  //normal metabolism
-                        switch (drug) {  //pick the drug
-                            case "Mercaptopurine":
-                            case "6MP":
-                            case "Purinethol":
-                            case "Purixan":
-                            case "6Mercaptopurine":
+                switch(drug) {  //pick the drug
+                    case "Mercaptopurine":
+                    case "6MP":
+                    case "Purinethol":
+                    case "Purixan":
+                    case "6Mercaptopurine":
+                        switch (alleles) {  //pick the alleles
+                            case "*1 *1":
+                            case "*1 *1S":
+                            case "*1S *1S":
+                                metabolizer.setText(normMet);  //normal metabolism
                                 recommendations.setText("Start with normal starting dose:\n" +
                                         "* Adult: 2.5 mg/kg daily   (include drug calculator option with each dose)\n" +
                                         "* Pediatric: 1.25-2.5 mg/kg (50-70 mg/m2) daily\n" +
                                         "Allow 2 weeks to reach steady state after each dose adjustment.\n");
                                 break;
-                            case "Thioguanine":
-                            case "6TG":
-                            case "6Thioguanine":
-                            case "Tabloid":
+                            case "*1 *2":
+                            case "*1 *3A":
+                            case "*1 *3B":
+                            case "*1 *3C":
+                            case "*1 *4":
+                            case "*1S *2":
+                            case "*1S *3A":
+                            case "*1S *3B":
+                            case "*1S *3C":
+                            case "*1S *4":
+                                metabolizer.setText(intMet);  //intermediate metabolism
+                                recommendations.setText("Start with 30-70% reduction from normal starting dose:\n" +
+                                        "* Adult: 0.75-1.75 mg/kg daily  (include drug calculator option with each dose)\n" +
+                                        "Pediatric: 0.375-1.75 mg/kg (15-49 mg/m2) daily\n" +
+                                        "Allow 2-4 weeks to reach steady state after each dose adjustment. \n" +
+                                        "In those who require a dosage reduction based on myelosuppression, the median dose may be ~40% lower \n");
+                                break;
+                            case "*2 *2":
+                            case "*2 *3A":
+                            case "*2 *3B":
+                            case "*2 *3C":
+                            case "*2 *4":
+                                metabolizer.setText(poorMet);  //poor metabolism
+                                recommendations.setText("For malignancy, reduce daily dose by 10-fold from normal starting dose and reduce frequency to thrice weekly instead of daily:\n" +
+                                        "* Adult: 0.25 mg/kg Three Times Weekly (include drug calculator option with each dose)\n" +
+                                        "* Pediatric: 0.125-0.25 mg/kg (5-7 mg/m2) Three Times Weekly\n" +
+                                        "Allow 4-6 weeks to reach steady state after each dose adjustment. \n" +
+                                        "For nonmalignant conditions, consider alternative nonthiopurine immunosuppressant therapy.\n");
+                                break;
+                            default:  //this is if a drug isn't selected
+                                recommendations.setText("Please select again.");
+                        }
+                        break;
+                    case "Thioguanine":
+                    case "6TG":
+                    case "6Thioguanine":
+                    case "Tabloid":
+                        switch (alleles) {
+                            case "*1 *1":
+                            case "*1 *1S":
+                            case "*1S *1S":
+                                metabolizer.setText(normMet);  //normal metabolism
                                 recommendations.setText("Start with normal starting dose:\n" +
                                         "* Adult and Pediatric: 2 mg/kg/day  (include dosage calculator)\n" +
                                         "Allow 2-4 weeks to reach steady state after each dose adjustment.\n" +
                                         "May cautiously increase to 3 mg/kg/day if no response after 4 weeks\n");
                                 break;
-                            case "Azathioprine":
-                            case "Azasan":
-                            case "Imuran":
+                            case "*1 *2":
+                            case "*1 *3A":
+                            case "*1 *3B":
+                            case "*1 *3C":
+                            case "*1 *4":
+                            case "*1S *2":
+                            case "*1S *3A":
+                            case "*1S *3B":
+                            case "*1S *3C":
+                            case "*1S *4":
+                                metabolizer.setText(intMet);  //intermediate metabolism
+                                recommendations.setText("Start with 30-50% reduction from normal starting dose:\n" +
+                                        "1 -1.4 mg/kg daily  (include drug calculator option with each dose)\n" +
+                                        "Allow 2-4 weeks to reach steady state after each dose adjustment. \n");
+                                break;
+                            case "*2 *2":
+                            case "*2 *3A":
+                            case "*2 *3B":
+                            case "*2 *3C":
+                            case "*2 *4":
+                                metabolizer.setText(poorMet);  //poor metabolism
+                                recommendations.setText("Reduce daily dose by 10-fold from normal starting dose and reduce frequency to thrice weekly instead of daily:\n" +
+                                        "0.2 mg/kg Three Times Weekly (include drug calculator option with each dose) \n" +
+                                        "Allow 4-6 weeks to reach steady state after each dose adjustment. \n" +
+                                        "For nonmalignant conditions, consider alternative nonthiopurine immunosuppressant therapy.\n");
+                                break;
+                            default:  //this is if a drug isn't selected
+                                recommendations.setText("Please select again.");
+                        }
+                        break;
+                    case "Azathioprine":
+                    case "Azasan":
+                    case "Imuran":
+                        switch (alleles) {
+                            case "*1 *1":
+                            case "*1 *1S":
+                            case "*1S *1S":
+                                metabolizer.setText(normMet);  //normal metabolism
                                 recommendations.setText("Start with normal starting dose:\n" +
                                         "Immunosuppressant/Kidney Transplantation  (include dosage calculator) \n" +
                                         "* Adult: 3-5 mg/kg/day\n" +
@@ -348,44 +422,17 @@ public class AlleleActivity extends DosageCalculator {
                                         "Juvenile Idiopathic Arthritis \n" +
                                         "* Pediatric: 1 mg/kg/day\n");
                                 break;
-                            default:  //this is if a drug isn't selected
-                                recommendations.setText("Please select again.");
-                        }
-                        break;
-                    case "*1 *2":
-                    case "*1 *3A":
-                    case "*1 *3B":
-                    case "*1 *3C":
-                    case "*1 *4":
-                    case "*1S *2":
-                    case "*1S *3A":
-                    case "*1S *3B":
-                    case "*1S *3C":
-                    case "*1S *4":
-                        metabolizer.setText(intMet);  //intermediate metabolism
-                        switch (drug) {
-                            case "Mercaptopurine":
-                            case "6MP":
-                            case "Purinethol":
-                            case "Purixan":
-                            case "6Mercaptopurine":
-                                recommendations.setText("Start with 30-70% reduction from normal starting dose:\n" +
-                                        "* Adult: 0.75-1.75 mg/kg daily  (include drug calculator option with each dose)\n" +
-                                        "Pediatric: 0.375-1.75 mg/kg (15-49 mg/m2) daily\n" +
-                                        "Allow 2-4 weeks to reach steady state after each dose adjustment. \n" +
-                                        "In those who require a dosage reduction based on myelosuppression, the median dose may be ~40% lower \n");
-                                break;
-                            case "Thioguanine":
-                            case "6TG":
-                            case "6Thioguanine":
-                            case "Tabloid":
-                                recommendations.setText("Start with 30-50% reduction from normal starting dose:\n" +
-                                        "1 -1.4 mg/kg daily  (include drug calculator option with each dose)\n" +
-                                        "Allow 2-4 weeks to reach steady state after each dose adjustment. \n");
-                                break;
-                            case "Azathioprine":
-                            case "Azasan":
-                            case "Imuran":
+                            case "*1 *2":
+                            case "*1 *3A":
+                            case "*1 *3B":
+                            case "*1 *3C":
+                            case "*1 *4":
+                            case "*1S *2":
+                            case "*1S *3A":
+                            case "*1S *3B":
+                            case "*1S *3C":
+                            case "*1S *4":
+                                metabolizer.setText(intMet);  //intermediate metabolism
                                 recommendations.setText("Start with 30-70% reduction from normal starting dose:\n" +
                                         "Immunosuppressant/Kidney Transplantation \n" +
                                         "Adult: 0.9-3.5 mg/kg daily  (include drug calculator option with each dose)\n" +
@@ -395,40 +442,12 @@ public class AlleleActivity extends DosageCalculator {
                                         "Pediatric: 0.3-0.7 mg/kg/day\n" +
                                         "Allow 2-4 weeks to reach steady state after each dose adjustment. \n");
                                 break;
-                            default:  //this is if a drug isn't selected
-                                recommendations.setText("Please select again.");
-                        }
-                        break;
-                    case "*2 *2":
-                    case "*2 *3A":
-                    case "*2 *3B":
-                    case "*2 *3C":
-                    case "*2 *4":
-                        metabolizer.setText(poorMet);  //poor metabolism
-                        switch (drug) {
-                            case "Mercaptopurine":
-                            case "6MP":
-                            case "Purinethol":
-                            case "Purixan":
-                            case "6Mercaptopurine":
-                                recommendations.setText("For malignancy, reduce daily dose by 10-fold from normal starting dose and reduce frequency to thrice weekly instead of daily:\n" +
-                                        "* Adult: 0.25 mg/kg Three Times Weekly (include drug calculator option with each dose)\n" +
-                                        "* Pediatric: 0.125-0.25 mg/kg (5-7 mg/m2) Three Times Weekly\n" +
-                                        "Allow 4-6 weeks to reach steady state after each dose adjustment. \n" +
-                                        "For nonmalignant conditions, consider alternative nonthiopurine immunosuppressant therapy.\n");
-                                break;
-                            case "Thioguanine":
-                            case "6TG":
-                            case "6Thioguanine":
-                            case "Tabloid":
-                                recommendations.setText("Reduce daily dose by 10-fold from normal starting dose and reduce frequency to thrice weekly instead of daily:\n" +
-                                        " 0.2 mg/kg Three Times Weekly (include drug calculator option with each dose) \n" +
-                                        "Allow 4-6 weeks to reach steady state after each dose adjustment. \n" +
-                                        "For nonmalignant conditions, consider alternative nonthiopurine immunosuppressant therapy.\n");
-                                break;
-                            case "Azathioprine":
-                            case "Azasan":
-                            case "Imuran":
+                            case "*2 *2":
+                            case "*2 *3A":
+                            case "*2 *3B":
+                            case "*2 *3C":
+                            case "*2 *4":
+                                metabolizer.setText(poorMet);  //poor metabolism
                                 recommendations.setText("Consider alternate therapy.\n" +
                                         "If you do use, reduce daily dose by 10-fold from normal starting dose and reduce frequency to thrice weekly instead of daily:\n" +
                                         " Immunosuppressant/Kidney Transplantation \n" +
@@ -454,7 +473,13 @@ public class AlleleActivity extends DosageCalculator {
                     case "Capecitabine":
                         switch(alleles) {
                             case "*Normal/No variant *Normal/No variant":
-                                //metabolizer.setText(DPYD1);
+                                metabolizer.setText(normMet);
+                                recommendations.setText("- Monotherapy (Metastatic Colorectal Cancer, Adjuvant Colorectal Cancer, " +
+                                        "Metastatic Breast Cancer)\n" +
+                                        "- The recommended dose of XELODA is 1250 " + Html.fromHtml("mg/m<sup>2</sup>") +" administered " +
+                                        "orally twice daily (morning and evening; " +
+                                        "equivalent to 2500 " + Html.fromHtml("mg/m<sup>2</sup>") +" total daily dose) " +
+                                        "for 2 weeks followed by a 1-week rest period given as 3-week cycles.");
                                 break;
                             case "*Normal/No variant *c.295_298delTCAT":
                             case "*Normal/No variant *c.703C>T":
@@ -469,12 +494,33 @@ public class AlleleActivity extends DosageCalculator {
                             case "*c.1129-5923C>G *c.1129-5923C>G":
                             case "*c.1129-5923C>G *c.2846A>T":
                             case "*c.2846A>T *c.2846A>T":
-                                //metabolizer.setText(DPYD2);
+                                metabolizer.setText(intMet);
+                                recommendations.setText("Reduce starting dose by 50% followed by titration " +
+                                        "of dose based on toxicity (increase the dose in patients " +
+                                        "experiencing no or clinically tolerable toxicity in the first " +
+                                        "two cycles to maintain efficacy; decrease the dose in patients " +
+                                        "who do not tolerate the starting dose to minimize toxicities) " +
+                                        "or therapeutic drug monitoring (if available).\n" +
+                                        "Start with 625 " + Html.fromHtml("mg/m<sup>2</sup>") +
+                                        " administered orally twice daily " +
+                                        "(morning and evening; equivalent to 1250 " +
+                                        Html.fromHtml("mg/m<sup>2</sup>") +" total daily dose) " +
+                                        "for 2 weeks followed by a 1-week rest period given as 3-week cycles.");
                                 break;
                             case "*Normal/No variant *c.557A>G":
                             case "*Normal/No variant *c.2846A>T":
                             case "*Normal/No variant *c.1129-5923C>G":
-                                //metabolizer.setText(DPYD3);
+                                metabolizer.setText(intMet);
+                                recommendations.setText("Reduce starting dose by 25% to 50% followed by titration " +
+                                        "of dose based on toxicity (increase the dose in patients " +
+                                        "experiencing no or clinically tolerable toxicity in the first " +
+                                        "two cycles to maintain efficacy; decrease the dose in patients who " +
+                                        "do not tolerate the starting dose to minimize toxicities) or " +
+                                        "therapeutic drug monitoring (if available).\n" +
+                                        "Start with 625-937.5 " + Html.fromHtml("mg/m<sup>2</sup>") +" administered " +
+                                        "orally twice daily (morning and evening; equivalent to 1250-1875 " +
+                                        Html.fromHtml("mg/m<sup>2</sup>") +" total daily dose) " +
+                                        "for 2 weeks followed by a 1-week rest period given as 3-week cycles.");
                                 break;
                             case "*c.295_298delTCAT *c.295.298delTCAT":
                             case "*c.295_298delTCAT *c.703C>T":
@@ -503,7 +549,8 @@ public class AlleleActivity extends DosageCalculator {
                             case "*c.1898delC *c.2983G>T":
                             case "*c.1905+1G>A *c.1905+1G>A":
                             case "*c.1905+1G>A *c.2983G>T":
-                                //metabolizer.setText(avoidUse);
+                                metabolizer.setText(poorMet);
+                                recommendations.setText("Avoid use of this drug.");
                                 break;
                             case "*c.295_298delTCAT *c.557A>G":
                             case "*c.295_298delTCAT *c.1129-5923C>G":
@@ -527,7 +574,13 @@ public class AlleleActivity extends DosageCalculator {
                             case "*c.1905+1G>A *c.2846A>T":
                             case "*c.2846A>T *c.2983G>T":
                             case "*c.2983G>T *c.2983G>T":
-                                //metabolizer.setText(avoidUse2);
+                                metabolizer.setText(poorMet);
+                                recommendations.setText("- Avoid use of this drug. In the event, based on clinical " +
+                                        "advice, alternative agents are not considered a suitable " +
+                                        "therapeutic option, 5-fluorouracil should be administered " +
+                                        "at a strongly reduced dose* with early therapeutic drug monitoring.\n" +
+                                        "* A dose of <25% of the normal starting dose is estimated " +
+                                        "assuming additive effects of alleles on 5-FU clearance.");
                                 break;
                             default:
                                 recommendations.setText("Please select again.");
@@ -541,7 +594,8 @@ public class AlleleActivity extends DosageCalculator {
                     case "5-FU":
                         switch(alleles) {
                             case "*Normal/No variant *Normal/No variant":
-                                //metabolizer.setText(DPYD5);
+                                metabolizer.setText(normMet);
+                                recommendations.setText("Keep normal recommended dosage.");
                                 break;
                             case "*Normal/No variant *c.295_298delTCAT":
                             case "*Normal/No variant *c.703C>T":
@@ -556,12 +610,26 @@ public class AlleleActivity extends DosageCalculator {
                             case "*c.1129-5923C>G *c.1129-5923C>G":
                             case "*c.1129-5923C>G *c.2846A>T":
                             case "*c.2846A>T *c.2846A>T":
-                                //metabolizer.setText(DPYD6);
+                                metabolizer.setText(intMet);
+                                recommendations.setText("Reduce starting dose by 50% followed by " +
+                                        "titration of dose based on toxicity (increase the dose " +
+                                        "in patients experiencing no or clinically tolerable " +
+                                        "toxicity in the first two cycles to maintain efficacy; " +
+                                        "decrease the dose in patients who do not tolerate the " +
+                                        "starting dose to minimize toxicities) or therapeutic " +
+                                        "drug monitoring (if available).");
                                 break;
                             case "*Normal/No variant *c.557A>G":
                             case "*Normal/No variant *c.2846A>T":
                             case "*Normal/No variant *c.1129-5923C>G":
-                                //metabolizer.setText(DPYD7);
+                                metabolizer.setText(intMet);
+                                recommendations.setText("Reduce starting dose by 25% to 50% " +
+                                        "followed by titration of dose based on toxicity " +
+                                        "(increase the dose in patients experiencing no or " +
+                                        "clinically tolerable toxicity in the first two cycles to " +
+                                        "maintain efficacy; decrease the dose in patients who do " +
+                                        "not tolerate the starting dose to minimize toxicities) " +
+                                        "or therapeutic drug monitoring (if available).");
                                 break;
                             case "*c.295_298delTCAT *c.295.298delTCAT":
                             case "*c.295_298delTCAT *c.703C>T":
@@ -590,7 +658,8 @@ public class AlleleActivity extends DosageCalculator {
                             case "*c.1898delC *c.2983G>T":
                             case "*c.1905+1G>A *c.1905+1G>A":
                             case "*c.1905+1G>A *c.2983G>T":
-                                //metabolizer.setText(avoidUse);
+                                metabolizer.setText(poorMet);
+                                recommendations.setText("Avoid use of this drug.");
                                 break;
                             case "*c.295_298delTCAT *c.557A>G":
                             case "*c.295_298delTCAT *c.1129-5923C>G":
@@ -614,7 +683,13 @@ public class AlleleActivity extends DosageCalculator {
                             case "*c.1905+1G>A *c.2846A>T":
                             case "*c.2846A>T *c.2983G>T":
                             case "*c.2983G>T *c.2983G>T":
-                                //metabolizer.setText(avoidUse2);
+                                metabolizer.setText(poorMet);
+                                recommendations.setText("- Avoid use of this drug. In the event, based on clinical " +
+                                        "advice, alternative agents are not considered a suitable " +
+                                        "therapeutic option, 5-fluorouracil should be administered " +
+                                        "at a strongly reduced dose* with early therapeutic drug monitoring.\n" +
+                                        "* A dose of <25% of the normal starting dose is estimated " +
+                                        "assuming additive effects of alleles on 5-FU clearance.");
                                 break;
                             default:
                                 recommendations.setText("Please select again.");

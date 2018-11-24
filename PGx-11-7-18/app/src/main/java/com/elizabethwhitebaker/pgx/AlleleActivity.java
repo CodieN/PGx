@@ -1,69 +1,131 @@
 //AlleleActivity is what drives the dosage calculator and all of its calculations.
 package com.elizabethwhitebaker.pgx;
 
+// These are all of the import statements
+// Imports the intent made on the DosageGuidelines page
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+// Imports the ability to bundle content
 import android.os.Bundle;
+// Imports the ability to use HTML elements
 import android.text.Html;
+// Imports the ability to scroll textviews
 import android.text.method.ScrollingMovementMethod;
+// Imports the ability to do onClick methods and view them
+// real time
 import android.view.View;
-import android.widget.ArrayAdapter;
+// Imports the ability to control buttons
 import android.widget.Button;
+// Imports the ability to control editTexts
 import android.widget.EditText;
+// Imports the ability to control spinner elements
 import android.widget.Spinner;
+// Imports the ability to control TextViews
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.elizabethwhitebaker.pgx.DosageCalculator;
-
-import org.w3c.dom.Text;
-
-import java.util.Objects;
-
-public class AlleleActivity extends DosageCalculator {
+// The Allele activity class inherits from the DosingGuidelines
+// so it can get the spinner items for the textview recommendation
+// text choice
+public class AlleleActivity extends DosingGuidelines {
     //variables for this entire page
+
+    // the are the text for the metabolizer textview so the user
+    // can know if the patient is a poor, intermediate, or normal
+    // metabolizer of the drug selected on the DosageGuidelines
+    // page
     public String poorMet;
     public String normMet;
     public String intMet;
-    //what the user can edit
+    // text fields the user can edit
+    // the dosage is how much the user is prescribing to the patient
     EditText Dosage;
+    // the weight field is for the weight of the patient,... not the doctor
     EditText Weight;
+    // the med amount edittext is for the liquid dosage amount
     EditText MedAmount;
+    // the per volume field is for entering the amount of meds per volume
+    // for the patient
     EditText PerVolume;
-    //the spinning menus that the user can pick units from
+
+    // the spinning menus that the user can pick units from
+
+    // this spinner is for choosing the units for the dosage
     Spinner DosageSpin;
+    // this spinner is for the weight units
     Spinner WeightSpin;
+    // this spinner is for the liquid med amount units
     Spinner MedAmountSpin;
+    // this spinner is for the liquid med per volume units
     Spinner PerVolumeSpin;
+    // this spinner is for selecting the units the resulting med dosage
+    // should be in
     Spinner DoseSpin;
+    // this spinner is for selecting the units the resulting liquid med
+    // dosage should be in
     Spinner LiquidDoseSpin;
-    //this is what holds the results after the calculations are done
+    // gets the selection of the user to see what decimal precision they want the results to be in
+    Spinner DecimalPrecSpin;
+
+    // this is what holds the results after the calculations are done
+
+    // this textview is used to display the results of the dosage calculator
     TextView Dose;
+    // this textview is used to display the result of the liquid calculations
+    // of the dosage calculator
     TextView LiquidDose;
+
     //intent is what brings the drug, alleles, and gene chosen from the other Activity pages
     //into this one, so the calculations can be done on the drug, gene, and alleles that the
     //user selected.
     Intent intent;
 
+    // This overrides the DosageGuidelines' page's onCreate method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // this sets the page that we are programming which is the activity_allele.xml page
         setContentView(R.layout.activity_allele);
-        //these set the string values for the metabolizer
+
+        DosageSpin = (Spinner)findViewById(R.id.spinner);
+        WeightSpin = (Spinner)findViewById(R.id.spinner2);
+        MedAmountSpin = (Spinner)findViewById(R.id.spinner3);
+        PerVolumeSpin = (Spinner)findViewById(R.id.spinner4);
+        DoseSpin = (Spinner)findViewById(R.id.spinner6);
+        LiquidDoseSpin = (Spinner)findViewById(R.id.spinner7);
+        DecimalPrecSpin = (Spinner)findViewById(R.id.decimal_prec);
+
+        DoseSpin.setSelection(15);
+        LiquidDoseSpin.setSelection(1);
+        DecimalPrecSpin.setSelection(2);
+        MedAmountSpin.setSelection(2);
+
+        // these set the string values for the metabolizer
+
+        // poorMet is defined in the xml so this captures that string literal
         poorMet = (String) getString(R.string.poor_met);
+        // normalMet is defined in the xml so this captures that string literal
         normMet = (String) getString(R.string.normal_met);
+        // intMet is defined in the xml so this captures that string literal
         intMet = (String) getString(R.string.int_met);
-        //this statement is what gets the values of the gene, drug, and alleles from the other
-        //Activity pages
+
+        // this statement is what gets the values of the gene, drug, and alleles from the other
+        // activity pages
         intent = getIntent();
-        //these statements set string variables equal to the individual selections the user made
-        //on previous pages
+
+        // these statements set string variables equal to the individual selections the user made
+        // on previous pages
+
+        // this gets the gene the user selected on the GetStartedActivity page that was
+        // passed to the DosageGuidelines page with intent and passed to this page with intent
         String gene = intent.getStringExtra("gene"); //gene
+        // this gets the drug the user selected on the GetStartedActivity page
         String drug = intent.getStringExtra("drug"); //drug
+        // the alleles are passed from the DosageGuidelines page with intent
         String allele1 = intent.getStringExtra("allele1"); //alleles
         String allele2 = intent.getStringExtra("allele2");
         //this value is used in the long nested switch statement at the bottom
         String alleles = allele1 + " " + allele2;
+
         //this textview uses the values from poorMet, intMet, and normMet (above) to populate
         //itself with text depending on the gene and drug and alleles chosen (figured out in
         //the nested switch statement below)
@@ -76,6 +138,7 @@ public class AlleleActivity extends DosageCalculator {
         recommendations.setMovementMethod(new ScrollingMovementMethod());
         //defines the calculate button
         Button Calculate = (Button)findViewById(R.id.button2);
+
         //sets a method that listens for the calculate button to be tapped
         Calculate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,12 +152,6 @@ public class AlleleActivity extends DosageCalculator {
                 Dose = (TextView)findViewById(R.id.textView6);
                 LiquidDose = (TextView)findViewById(R.id.textView8);
 
-                DosageSpin = (Spinner)findViewById(R.id.spinner);
-                WeightSpin = (Spinner)findViewById(R.id.spinner2);
-                MedAmountSpin = (Spinner)findViewById(R.id.spinner3);
-                PerVolumeSpin = (Spinner)findViewById(R.id.spinner4);
-                DoseSpin = (Spinner)findViewById(R.id.spinner6);
-                LiquidDoseSpin = (Spinner)findViewById(R.id.spinner7);
                 //sets all of the calculated results to 0
                 double Dosage1 = 0;
                 double Weight1 = 0;
@@ -167,22 +224,22 @@ public class AlleleActivity extends DosageCalculator {
 
                 switch(MedAmountSpin1.toString()) {
                     case "gm":
-                        MedAmountFinal = MedAmount1 * 1000;
+                        MedAmountFinal = MedAmount1 * 1000000000;
                         break;
                     case "mcg":
-                        MedAmountFinal = MedAmount1 / 1000;
+                        MedAmountFinal = MedAmount1 * 1000;
                         break;
                     case "mg":
-                        MedAmountFinal = MedAmount1;
+                        MedAmountFinal = MedAmount1 * 1000000;
                         break;
                 }
 
                 switch(PerVolumeSpin1.toString()) {
                     case "mL":
-                        PerVolumeFinal = PerVolume1;
+                        PerVolumeFinal = PerVolume1 * 1000;
                         break;
                     case "L":
-                        PerVolumeFinal = PerVolume1 * 1000;
+                        PerVolumeFinal = PerVolume1 * 1000000;
                         break;
                 }
                 //this calculation needs to be made before we move on with other calculations
@@ -253,59 +310,59 @@ public class AlleleActivity extends DosageCalculator {
                         DoseFinal = Dose1/6;
                         break;
                 }
-                //decimal places the user wants to have the result in
-                int a=3;
+
                 //this sets a textview's text equal to the result of the calculation
-                Dose.setText(String.format("%."+String.valueOf(a)+"f", DoseFinal));
+                Dose.setText(String.format("%."+String.valueOf(DecimalPrecSpin.getSelectedItem().toString())+"f", DoseFinal));
+
                 //calculations to get a liquid dose
                 LiquidDose1 = (Dose1 * PerVolumeFinal)/MedAmountFinal;
                 //more unit conversions
                 switch(LiquidDoseSpin1.toString()) {
                     case "mL BID":
-                        LiquidDoseFinal = LiquidDose1 * 2;
+                        LiquidDoseFinal = LiquidDose1 * 2000;
                         break;
                     case "mL Daily":
-                        LiquidDoseFinal = LiquidDose1;
+                        LiquidDoseFinal = LiquidDose1 * 1000;
                         break;
                     case "mL QID":
-                        LiquidDoseFinal = LiquidDose1 * 4;
+                        LiquidDoseFinal = LiquidDose1 * 4000;
                         break;
                     case "mL TID":
-                        LiquidDoseFinal = LiquidDose1 * 3;
+                        LiquidDoseFinal = LiquidDose1 * 3000;
                         break;
                     case "mL q1 hr":
-                        LiquidDoseFinal = LiquidDose1 * 24;
+                        LiquidDoseFinal = LiquidDose1 * 24000;
                         break;
                     case "mL q2 hr":
-                        LiquidDoseFinal = LiquidDose1 * 12;
+                        LiquidDoseFinal = LiquidDose1 * 12000;
                         break;
                     case "mL q4 hr":
-                        LiquidDoseFinal = LiquidDose1 * 6;
+                        LiquidDoseFinal = LiquidDose1 * 6000;
                         break;
                     case "L BID":
-                        LiquidDoseFinal = LiquidDose1 * (2  * 1000);
+                        LiquidDoseFinal = LiquidDose1 * 2;
                         break;
                     case "L Daily":
-                        LiquidDoseFinal = LiquidDose1 *  1000;
+                        LiquidDoseFinal = LiquidDose1;
                         break;
                     case "L QID":
-                        LiquidDoseFinal = LiquidDose1 * (4 * 1000);
+                        LiquidDoseFinal = LiquidDose1 * 4;
                         break;
                     case "L TID":
-                        LiquidDoseFinal = LiquidDose1 * (3 * 1000);
+                        LiquidDoseFinal = LiquidDose1 * 3;
                         break;
                     case "L q1 hr":
-                        LiquidDoseFinal = LiquidDose1 * (24 * 1000);
+                        LiquidDoseFinal = LiquidDose1 * 24;
                         break;
                     case "L q2 hr":
-                        LiquidDoseFinal = LiquidDose1 * (12 * 1000);
+                        LiquidDoseFinal = LiquidDose1 * 12;
                         break;
                     case "L q4 hr":
-                        LiquidDoseFinal = LiquidDose1 * (6 * 1000);
+                        LiquidDoseFinal = LiquidDose1 * 6;
                         break;
                 }
                 //sets the textview's text equal to the calculation result for liquid dose
-                LiquidDose.setText(String.format("%."+String.valueOf(a)+"f", LiquidDoseFinal));
+                LiquidDose.setText(String.format("%."+String.valueOf(DecimalPrecSpin.getSelectedItem().toString())+"f", LiquidDoseFinal));
             }
         });
 

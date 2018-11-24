@@ -345,26 +345,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/liquid_tv"/>
 
+    <Spinner
+        android:id="@+id/decimal_prec"
+        android:layout_width="75sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="12dp"
+        android:entries="@array/decimal_prec"
+        android:spinnerMode="dropdown"
+        android:textSize="12sp"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/decimal_tv" />
+
     <android.support.constraint.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.62"/>
-
-    <TextView
-        android:id="@+id/decimal_prec_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:elevation="12dp"
-        android:text="-------"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/spinner7"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/decimal_tv" />
 
     <TextView
         android:id="@+id/textView6"
@@ -399,12 +401,11 @@
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:text="Calculate"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/decimal_prec_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/decimal_prec" />
 
 </android.support.constraint.ConstraintLayout>

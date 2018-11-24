@@ -274,4 +274,11 @@
         <item>*c.2983G>T</item>
     </string-array>
 
+    <string-array name="decimal_prec">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
 </resources>

@@ -13,9 +13,8 @@ import android.widget.TextView;
 public class KnowMoreActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "KnowMoreActivity";
 
-    public ConstraintLayout knowMore, knowMore1, knowMore2, knowMore3;
     public View currentLayout;
-    public TextView tvTitle, tvText, next, rturn, back;
+    public TextView next, rturn, back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

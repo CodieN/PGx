@@ -3,8 +3,11 @@ package com.elizabethwhitebaker.pgx;
 
 // These are all of the import statements
 // Imports the intent made on the DosageGuidelines page
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 // Imports the ability to bundle content
+import android.graphics.Color;
 import android.os.Bundle;
 // Imports the ability to use HTML elements
 import android.text.Html;
@@ -137,7 +140,7 @@ public class AlleleActivity extends DosingGuidelines {
         //recommendation text
         recommendations.setMovementMethod(new ScrollingMovementMethod());
         //defines the calculate button
-        Button Calculate = (Button)findViewById(R.id.button2);
+        final Button Calculate = (Button)findViewById(R.id.button2);
 
         //sets a method that listens for the calculate button to be tapped
         Calculate.setOnClickListener(new View.OnClickListener() {
@@ -608,6 +611,7 @@ public class AlleleActivity extends DosingGuidelines {
                             case "*c.1905+1G>A *c.2983G>T":
                                 metabolizer.setText(poorMet);
                                 recommendations.setText("Avoid use of this drug.");
+                                recommendations.setTextColor(Color.RED);
                                 break;
                             case "*c.295_298delTCAT *c.557A>G":
                             case "*c.295_298delTCAT *c.1129-5923C>G":
@@ -653,6 +657,7 @@ public class AlleleActivity extends DosingGuidelines {
                             case "*Normal/No variant *Normal/No variant":
                                 metabolizer.setText(normMet);
                                 recommendations.setText("Keep normal recommended dosage.");
+                                recommendations.setTextColor(Color.RED);
                                 break;
                             case "*Normal/No variant *c.295_298delTCAT":
                             case "*Normal/No variant *c.703C>T":
@@ -717,6 +722,7 @@ public class AlleleActivity extends DosingGuidelines {
                             case "*c.1905+1G>A *c.2983G>T":
                                 metabolizer.setText(poorMet);
                                 recommendations.setText("Avoid use of this drug.");
+                                recommendations.setTextColor(Color.RED);
                                 break;
                             case "*c.295_298delTCAT *c.557A>G":
                             case "*c.295_298delTCAT *c.1129-5923C>G":

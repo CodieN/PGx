@@ -381,7 +381,7 @@
         android:id="@+id/calculator_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorCalc"
         android:elevation="12dp"
         android:text="Weight-Based Divided Dose Calculator"
         android:textAlignment="center"

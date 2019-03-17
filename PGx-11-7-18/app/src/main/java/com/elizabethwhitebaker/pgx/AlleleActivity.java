@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 // Imports the ability to control TextViews
 import android.widget.TextView;
+import android.widget.Toast;
 
 // The Allele activity class inherits from the DosingGuidelines
 // so it can get the spinner items for the textview recommendation
@@ -148,12 +149,12 @@ public class AlleleActivity extends DosingGuidelines {
             public void onClick(View v) {
                 //finds all the controls from the XML layout and sets them equal to variables so
                 //it's easier to manipulate and calculate with the contents of the controls
-                Dosage = (EditText)findViewById(R.id.editText);
-                Weight = (EditText)findViewById(R.id.editText2);
-                MedAmount = (EditText)findViewById(R.id.editText3);
-                PerVolume = (EditText)findViewById(R.id.editText4);
-                Dose = (TextView)findViewById(R.id.textView6);
-                LiquidDose = (TextView)findViewById(R.id.textView8);
+                Dosage = (EditText) findViewById(R.id.editText);
+                Weight = (EditText) findViewById(R.id.editText2);
+                MedAmount = (EditText) findViewById(R.id.editText3);
+                PerVolume = (EditText) findViewById(R.id.editText4);
+                Dose = (TextView) findViewById(R.id.textView6);
+                LiquidDose = (TextView) findViewById(R.id.textView8);
 
                 //sets all of the calculated results to 0
                 double Dosage1 = 0;
@@ -171,201 +172,224 @@ public class AlleleActivity extends DosingGuidelines {
                 double DoseFinal = 0;
                 double LiquidDoseFinal = 0;
                 //gets all of the units the user wants the calculation to be converted to
-                String DosageSpin1= DosageSpin.getSelectedItem().toString();
-                String WeightSpin1=String.valueOf(WeightSpin.getSelectedItem());
-                String MedAmountSpin1=String.valueOf(MedAmountSpin.getSelectedItem());
-                String PerVolumeSpin1=String.valueOf(PerVolumeSpin.getSelectedItem());
-                String DoseSpin1=String.valueOf(DoseSpin.getSelectedItem());
-                String LiquidDoseSpin1=String.valueOf(LiquidDoseSpin.getSelectedItem());
+                String DosageSpin1 = DosageSpin.getSelectedItem().toString();
+                String WeightSpin1 = String.valueOf(WeightSpin.getSelectedItem());
+                String MedAmountSpin1 = String.valueOf(MedAmountSpin.getSelectedItem());
+                String PerVolumeSpin1 = String.valueOf(PerVolumeSpin.getSelectedItem());
+                String DoseSpin1 = String.valueOf(DoseSpin.getSelectedItem());
+                String LiquidDoseSpin1 = String.valueOf(LiquidDoseSpin.getSelectedItem());
 
-                //trys to see if the user entered numbers instead of letters
-                try {
-                    Dosage1 = Double.parseDouble(String.valueOf(Dosage.getText()));
-                }
-                catch(Exception e)
-                {
-                }
-                try {
-                    Weight1 = Double.parseDouble(String.valueOf(Weight.getText()));
-                }
-                catch(Exception e)
-                {
-                }
-                try {
-                    MedAmount1 = Double.parseDouble(String.valueOf(MedAmount.getText()));
-                }
-                catch (Exception e)
-                {
-                }
-                try {
-                    PerVolume1 = Double.parseDouble(String.valueOf(PerVolume.getText()));
-                }
-                catch(Exception e)
-                {
-                }
-                //conversions based on the units the user chooses from the spinners
-                switch(DosageSpin1.toString()) {
-                    case "mg/kg":
-                        DosageFinal = Dosage1;
-                        break;
-                    case "mcg/kg":
-                        DosageFinal = Dosage1 / 1000;
-                        break;
-                    case "gm/kg":
-                        DosageFinal = Dosage1 * 1000;
-                        break;
-                }
+                if (Dosage.getText().toString().equals("")) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(
+                            Calculate.getContext()).create();
+                    alertDialog.setTitle("Type Dosage Value");
+                    alertDialog.setMessage("Type a value for the dosage amount the patient is being prescribed please.");
+                    alertDialog.show();
+                } else if (Weight.getText().toString().equals("")) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(
+                            Calculate.getContext()).create();
+                    alertDialog.setTitle("Type Weight Value");
+                    alertDialog.setMessage("Type a value for the weight amount of the patient please.");
+                    alertDialog.show();
+                } else {
+                    //trys to see if the user entered numbers instead of letters
+                    try {
+                        Dosage1 = Double.parseDouble(String.valueOf(Dosage.getText()));
+                    } catch (Exception e) {
+                    }
+                    try {
+                        Weight1 = Double.parseDouble(String.valueOf(Weight.getText()));
+                    } catch (Exception e) {
+                    }
 
-                switch(WeightSpin1.toString()) {
-                    case "kg":
-                        WeightFinal = Weight1;
-                        break;
-                    case "lbs":
-                        WeightFinal = Weight1 * 0.45359237;
-                        break;
-                }
+                    //conversions based on the units the user chooses from the spinners
+                    switch (DosageSpin1.toString()) {
+                        case "mg/kg":
+                            DosageFinal = Dosage1;
+                            break;
+                        case "mcg/kg":
+                            DosageFinal = Dosage1 / 1000;
+                            break;
+                        case "gm/kg":
+                            DosageFinal = Dosage1 * 1000;
+                            break;
+                    }
 
-                switch(MedAmountSpin1.toString()) {
-                    case "gm":
-                        MedAmountFinal = MedAmount1 * 1000000000;
-                        break;
-                    case "mcg":
-                        MedAmountFinal = MedAmount1 * 1000;
-                        break;
-                    case "mg":
-                        MedAmountFinal = MedAmount1 * 1000000;
-                        break;
-                }
+                    switch (WeightSpin1.toString()) {
+                        case "kg":
+                            WeightFinal = Weight1;
+                            break;
+                        case "lbs":
+                            WeightFinal = Weight1 * 0.45359237;
+                            break;
+                    }
 
-                switch(PerVolumeSpin1.toString()) {
-                    case "mL":
-                        PerVolumeFinal = PerVolume1 * 1000;
-                        break;
-                    case "L":
-                        PerVolumeFinal = PerVolume1 * 1000000;
-                        break;
-                }
-                //this calculation needs to be made before we move on with other calculations
-                Dose1 = DosageFinal * WeightFinal;
-                //more unit conversions
-                switch(DoseSpin1.toString()) {
-                    case "gm BID":
-                        DoseFinal = Dose1/2000;
-                        break;
-                    case "gm Daily":
-                        DoseFinal = Dose1/1000;
-                        break;
-                    case "gm QID":
-                        DoseFinal = Dose1/4000;
-                        break;
-                    case "gm TID":
-                        DoseFinal = Dose1/3000;
-                        break;
-                    case "gm q1 hr":
-                        DoseFinal = Dose1/24000;
-                        break;
-                    case "gm q2 hr":
-                        DoseFinal = Dose1/12000;
-                        break;
-                    case "gm q4 hr":
-                        DoseFinal = Dose1/6000;
-                        break;
-                    case "mcg BID":
-                        DoseFinal = Dose1/0.002;
-                        break;
-                    case "mcg Daily":
-                        DoseFinal = Dose1/0.001;
-                        break;
-                    case "mcg QID":
-                        DoseFinal = Dose1/0.004;
-                        break;
-                    case "mcg TID":
-                        DoseFinal = Dose1/0.003;
-                        break;
-                    case "mcg q1 hr":
-                        DoseFinal = Dose1/0.024;
-                        break;
-                    case "mcg q2 hr":
-                        DoseFinal = Dose1/0.012;
-                        break;
-                    case "mcg q4 hr":
-                        DoseFinal = Dose1/0.006;
-                        break;
-                    case "mg BID":
-                        DoseFinal = Dose1/2;
-                        break;
-                    case "mg Daily":
-                        DoseFinal = Dose1;
-                        break;
-                    case "mg QID":
-                        DoseFinal = Dose1/4;
-                        break;
-                    case "mg TID":
-                        DoseFinal = Dose1/3;
-                        break;
-                    case "mg q1 hr":
-                        DoseFinal = Dose1/24;
-                        break;
-                    case "mg q2 hr":
-                        DoseFinal = Dose1/12;
-                        break;
-                    case "mg q4 hr":
-                        DoseFinal = Dose1/6;
-                        break;
+                    //this calculation needs to be made before we move on with other calculations
+                    Dose1 = DosageFinal * WeightFinal;
+                    //more unit conversions
+                    switch (DoseSpin1.toString()) {
+                        case "gm BID":
+                            DoseFinal = Dose1 / 2000;
+                            break;
+                        case "gm Daily":
+                            DoseFinal = Dose1 / 1000;
+                            break;
+                        case "gm QID":
+                            DoseFinal = Dose1 / 4000;
+                            break;
+                        case "gm TID":
+                            DoseFinal = Dose1 / 3000;
+                            break;
+                        case "gm q1 hr":
+                            DoseFinal = Dose1 / 24000;
+                            break;
+                        case "gm q2 hr":
+                            DoseFinal = Dose1 / 12000;
+                            break;
+                        case "gm q4 hr":
+                            DoseFinal = Dose1 / 6000;
+                            break;
+                        case "mcg BID":
+                            DoseFinal = Dose1 / 0.002;
+                            break;
+                        case "mcg Daily":
+                            DoseFinal = Dose1 / 0.001;
+                            break;
+                        case "mcg QID":
+                            DoseFinal = Dose1 / 0.004;
+                            break;
+                        case "mcg TID":
+                            DoseFinal = Dose1 / 0.003;
+                            break;
+                        case "mcg q1 hr":
+                            DoseFinal = Dose1 / 0.024;
+                            break;
+                        case "mcg q2 hr":
+                            DoseFinal = Dose1 / 0.012;
+                            break;
+                        case "mcg q4 hr":
+                            DoseFinal = Dose1 / 0.006;
+                            break;
+                        case "mg BID":
+                            DoseFinal = Dose1 / 2;
+                            break;
+                        case "mg Daily":
+                            DoseFinal = Dose1;
+                            break;
+                        case "mg QID":
+                            DoseFinal = Dose1 / 4;
+                            break;
+                        case "mg TID":
+                            DoseFinal = Dose1 / 3;
+                            break;
+                        case "mg q1 hr":
+                            DoseFinal = Dose1 / 24;
+                            break;
+                        case "mg q2 hr":
+                            DoseFinal = Dose1 / 12;
+                            break;
+                        case "mg q4 hr":
+                            DoseFinal = Dose1 / 6;
+                            break;
+                    }
+
+                    //this sets a textview's text equal to the result of the calculation
+                    Dose.setText(String.format("%." + String.valueOf(DecimalPrecSpin.getSelectedItem().toString()) + "f", DoseFinal));
                 }
 
-                //this sets a textview's text equal to the result of the calculation
-                Dose.setText(String.format("%."+String.valueOf(DecimalPrecSpin.getSelectedItem().toString())+"f", DoseFinal));
+                if (MedAmount.getText().toString().equals("") && !PerVolume.getText().toString().equals("")) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(
+                            Calculate.getContext()).create();
+                    alertDialog.setTitle("Type Med Amount Value");
+                    alertDialog.setMessage("Type a value for the liquid medication amount given to the patient please.");
+                    alertDialog.show();
+                } else if (!MedAmount.getText().toString().equals("") && PerVolume.getText().toString().equals("")) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(
+                            Calculate.getContext()).create();
+                    alertDialog.setTitle("Type Per Volume Value");
+                    alertDialog.setMessage("Type a value for the per volume amount of the drug please.");
+                    alertDialog.show();
+                } else if (!MedAmount.getText().toString().equals("") && !PerVolume.getText().toString().equals("")) {
+                    try {
+                        MedAmount1 = Double.parseDouble(String.valueOf(MedAmount.getText()));
+                    } catch (Exception e) {
+                    }
+                    try {
+                        PerVolume1 = Double.parseDouble(String.valueOf(PerVolume.getText()));
+                    } catch (Exception e) {
+                    }
 
-                //calculations to get a liquid dose
-                LiquidDose1 = (Dose1 * PerVolumeFinal)/MedAmountFinal;
-                //more unit conversions
-                switch(LiquidDoseSpin1.toString()) {
-                    case "mL BID":
-                        LiquidDoseFinal = LiquidDose1 * 2000;
-                        break;
-                    case "mL Daily":
-                        LiquidDoseFinal = LiquidDose1 * 1000;
-                        break;
-                    case "mL QID":
-                        LiquidDoseFinal = LiquidDose1 * 4000;
-                        break;
-                    case "mL TID":
-                        LiquidDoseFinal = LiquidDose1 * 3000;
-                        break;
-                    case "mL q1 hr":
-                        LiquidDoseFinal = LiquidDose1 * 24000;
-                        break;
-                    case "mL q2 hr":
-                        LiquidDoseFinal = LiquidDose1 * 12000;
-                        break;
-                    case "mL q4 hr":
-                        LiquidDoseFinal = LiquidDose1 * 6000;
-                        break;
-                    case "L BID":
-                        LiquidDoseFinal = LiquidDose1 * 2;
-                        break;
-                    case "L Daily":
-                        LiquidDoseFinal = LiquidDose1;
-                        break;
-                    case "L QID":
-                        LiquidDoseFinal = LiquidDose1 * 4;
-                        break;
-                    case "L TID":
-                        LiquidDoseFinal = LiquidDose1 * 3;
-                        break;
-                    case "L q1 hr":
-                        LiquidDoseFinal = LiquidDose1 * 24;
-                        break;
-                    case "L q2 hr":
-                        LiquidDoseFinal = LiquidDose1 * 12;
-                        break;
-                    case "L q4 hr":
-                        LiquidDoseFinal = LiquidDose1 * 6;
-                        break;
+                    switch (MedAmountSpin1.toString()) {
+                        case "gm":
+                            MedAmountFinal = MedAmount1 * 1000000000;
+                            break;
+                        case "mcg":
+                            MedAmountFinal = MedAmount1 * 1000;
+                            break;
+                        case "mg":
+                            MedAmountFinal = MedAmount1 * 1000000;
+                            break;
+                    }
+
+                    switch (PerVolumeSpin1.toString()) {
+                        case "mL":
+                            PerVolumeFinal = PerVolume1 * 1000;
+                            break;
+                        case "L":
+                            PerVolumeFinal = PerVolume1 * 1000000;
+                            break;
+                    }
+
+                    //calculations to get a liquid dose
+                    LiquidDose1 = (Dose1 * PerVolumeFinal) / MedAmountFinal;
+                    //more unit conversions
+                    switch (LiquidDoseSpin1.toString()) {
+                        case "mL BID":
+                            LiquidDoseFinal = LiquidDose1 * 2000;
+                            break;
+                        case "mL Daily":
+                            LiquidDoseFinal = LiquidDose1 * 1000;
+                            break;
+                        case "mL QID":
+                            LiquidDoseFinal = LiquidDose1 * 4000;
+                            break;
+                        case "mL TID":
+                            LiquidDoseFinal = LiquidDose1 * 3000;
+                            break;
+                        case "mL q1 hr":
+                            LiquidDoseFinal = LiquidDose1 * 24000;
+                            break;
+                        case "mL q2 hr":
+                            LiquidDoseFinal = LiquidDose1 * 12000;
+                            break;
+                        case "mL q4 hr":
+                            LiquidDoseFinal = LiquidDose1 * 6000;
+                            break;
+                        case "L BID":
+                            LiquidDoseFinal = LiquidDose1 * 2;
+                            break;
+                        case "L Daily":
+                            LiquidDoseFinal = LiquidDose1;
+                            break;
+                        case "L QID":
+                            LiquidDoseFinal = LiquidDose1 * 4;
+                            break;
+                        case "L TID":
+                            LiquidDoseFinal = LiquidDose1 * 3;
+                            break;
+                        case "L q1 hr":
+                            LiquidDoseFinal = LiquidDose1 * 24;
+                            break;
+                        case "L q2 hr":
+                            LiquidDoseFinal = LiquidDose1 * 12;
+                            break;
+                        case "L q4 hr":
+                            LiquidDoseFinal = LiquidDose1 * 6;
+                            break;
+                    }
+                    //sets the textview's text equal to the calculation result for liquid dose
+                    LiquidDose.setText(String.format("%." + String.valueOf(DecimalPrecSpin.getSelectedItem().toString()) + "f", LiquidDoseFinal));
                 }
-                //sets the textview's text equal to the calculation result for liquid dose
-                LiquidDose.setText(String.format("%."+String.valueOf(DecimalPrecSpin.getSelectedItem().toString())+"f", LiquidDoseFinal));
             }
         });
 

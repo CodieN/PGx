@@ -1,6 +1,7 @@
 package com.elizabethwhitebaker.pgx;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
@@ -182,6 +183,16 @@ public class KnowMoreActivity extends AppCompatActivity implements View.OnClickL
                     rturn = (TextView) findViewById(R.id.return_tv);
                     rturn.setOnClickListener(rOnClickListener);
 
+                    Button genelex = (Button) findViewById(R.id.genelexbtn);
+                    Button genesight = (Button) findViewById(R.id.genesightbtn);
+                    Button oneome = (Button) findViewById(R.id.oneomebtn);
+                    Button youscript = (Button) findViewById(R.id.youscriptbtn);
+
+                    genelex.setOnClickListener(defListener);
+                    genesight.setOnClickListener(defListener);
+                    oneome.setOnClickListener(defListener);
+                    youscript.setOnClickListener(defListener);
+
                     currentLayout = findViewById(R.id.km7);
                     currentLayout.setOnClickListener(kOnClickListener);
                     break;
@@ -193,6 +204,14 @@ public class KnowMoreActivity extends AppCompatActivity implements View.OnClickL
                     next.setOnClickListener(kOnClickListener);
                     rturn = (TextView) findViewById(R.id.return_tv);
                     rturn.setOnClickListener(rOnClickListener);
+
+                    Button cpicbtn = (Button) findViewById(R.id.cpicbtn);
+                    Button pharmabtn = (Button) findViewById(R.id.parmagkbbtn);
+                    Button pgrn = (Button) findViewById(R.id.pgrnbtn);
+
+                    cpicbtn.setOnClickListener(defListener);
+                    pharmabtn.setOnClickListener(defListener);
+                    pgrn.setOnClickListener(defListener);
 
                     currentLayout = findViewById(R.id.km8);
                     currentLayout.setOnClickListener(kOnClickListener);
@@ -206,10 +225,15 @@ public class KnowMoreActivity extends AppCompatActivity implements View.OnClickL
                     rturn = (TextView) findViewById(R.id.return_tv);
                     rturn.setOnClickListener(rOnClickListener);
 
+                    Button g2c2 = (Button) findViewById(R.id.g2c2btn);
+                    Button ignite = (Button) findViewById(R.id.ignitebtn);
+
+                    g2c2.setOnClickListener(defListener);
+                    ignite.setOnClickListener(defListener);
+
                     currentLayout = findViewById(R.id.km9);
                     currentLayout.setOnClickListener(kOnClickListener);
                     break;
-
             }
         }
     };
@@ -257,6 +281,51 @@ public class KnowMoreActivity extends AppCompatActivity implements View.OnClickL
 
                                 }
                             }).show();
+                    break;
+                case R.id.cpicbtn:
+                    Uri uriUrl = Uri.parse("https://cpicpgx.org/");
+                    Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
+                    break;
+                case R.id.parmagkbbtn:
+                    uriUrl = Uri.parse("https://www.pharmgkb.org/");
+                    launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
+                    break;
+                case R.id.pgrnbtn:
+                    uriUrl = Uri.parse("https://www.pgrn.org/");
+                    launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
+                    break;
+                case R.id.g2c2btn:
+                    uriUrl = Uri.parse("https://genomicseducation.net/");
+                    launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
+                    break;
+                case R.id.ignitebtn:
+                    uriUrl = Uri.parse("https://ignite-genomics.org/");
+                    launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
+                    break;
+                case R.id.genelexbtn:
+                    uriUrl = Uri.parse("https://www.genelex.com/");
+                    launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
+                    break;
+                case R.id.genesightbtn:
+                    uriUrl = Uri.parse("https://genesight.com/");
+                    launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
+                    break;
+                case R.id.oneomebtn:
+                    uriUrl = Uri.parse("https://oneome.com/");
+                    launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
+                    break;
+                case R.id.youscriptbtn:
+                    uriUrl = Uri.parse("https://youscript.com/");
+                    launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
                     break;
             }
         }
